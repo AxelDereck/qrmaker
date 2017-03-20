@@ -1,11 +1,14 @@
 package com.simback.qrmaker.view;
 
 import java.io.File;
+import java.sql.Timestamp;
+import java.util.Date;
 
 import com.simback.qrmaker.MainApp;
 import com.simback.qrmaker.controller.QRGenerator;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 
@@ -18,7 +21,10 @@ public class QRMakerSimpleController {
 	private TextField targetDir;
 	
 	@FXML
-	private  TextField fileName;
+	private TextField fileName;
+	
+	@FXML
+	private CheckBox autogen;
 	
 	@SuppressWarnings("unused")
 	private MainApp mainApp;
@@ -49,6 +55,8 @@ public class QRMakerSimpleController {
 	 */
 	@FXML
 	private void launchGeneration() {
+		if(autogen.isSelected())
+			fileName.setText( "qrcode_" + getTimeStamp() + ".png" );
 		String filePath = targetDir.getText() + fileName.getText();
 		int result = QRGenerator.generateQR(filePath, textToEncode.getText());
 		switch(result) {
@@ -78,5 +86,17 @@ public class QRMakerSimpleController {
 		if(null != selDir) {
 			targetDir.setText(selDir.getPath() + "\\");
 		}
+	}
+	
+	@FXML
+	private void autogenChecked() {
+//		Message.showInformation("We are there " + autogen.isSelected() + " !");
+		fileName.setEditable( ! autogen.isSelected() );
+		fileName.setDisable( autogen.isSelected() );
+	}
+	
+	private long getTimeStamp() {
+		Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
+		return timeStamp.getTime();
 	}
 }
