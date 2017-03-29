@@ -28,7 +28,8 @@ public class MainApp extends Application {
 		try {
 			// Load root layout from FXML file
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/qrmaker_simple.fxml"));
+//			loader.setLocation(MainApp.class.getResource("view/qrmaker_simple.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/qrmaker_batch.fxml"));
 			rootLayout = (TitledPane) loader.load();
 			
 			// Show the scene containing the root layout.

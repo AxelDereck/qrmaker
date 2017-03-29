@@ -2,13 +2,13 @@ package com.simback.qrmaker.view;
 
 import java.io.File;
 import java.sql.Timestamp;
-import java.util.Date;
 
 import com.simback.qrmaker.MainApp;
 import com.simback.qrmaker.controller.QRGenerator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
 
@@ -18,10 +18,16 @@ public class QRMakerSimpleController {
 	private TextField textToEncode;
 	
 	@FXML
+	private TextArea textToEncodeBatch;
+	
+	@FXML
 	private TextField targetDir;
 	
 	@FXML
 	private TextField fileName;
+	
+	@FXML
+	private CheckBox batchMode;
 	
 	@FXML
 	private CheckBox autogen;
@@ -55,18 +61,34 @@ public class QRMakerSimpleController {
 	 */
 	@FXML
 	private void launchGeneration() {
-		if(autogen.isSelected())
-			fileName.setText( "qrcode_" + getTimeStamp() + ".png" );
-		String filePath = targetDir.getText() + fileName.getText();
-		int result = QRGenerator.generateQR(filePath, textToEncode.getText());
-		switch(result) {
-		case 0:
-			Message.showError("Erreur lors de la génération du fichier !");
-			break;
-			
-		case 1:
-			Message.showInformation("Génération du fichier réussi avec succès !");
-			break;
+		if(! batchMode.isSelected()) {
+			if(autogen.isSelected())
+				fileName.setText( "qrcode_" + getTimeStamp() + ".png" );
+			String filePath = targetDir.getText() + fileName.getText();
+			int result = QRGenerator.generateQR(filePath, textToEncode.getText());
+			switch(result) {
+			case 0:
+				Message.showError("Erreur lors de la génération du fichier !");
+				break;
+
+			case 1:
+				Message.showInformation("Génération du fichier réussi avec succès !");
+				break;
+			}
+		} else {
+			String fullText = textToEncodeBatch.getText();
+			String[] parts = fullText.split("\n");
+			for (String part : parts) {
+				String filePath = targetDir.getText() + part + ".png";
+				QRGenerator.generateQR(filePath, part);
+				/*
+				int result = QRGenerator.generateQR(filePath, part);
+				if (result == 1)
+					Message.showInformation("Génération du fichier réussi avec succès !");
+				else
+					Message.showError("Erreur lors de la génération du fichier !");
+					*/
+			}
 		}
 	}
 	
@@ -98,5 +120,13 @@ public class QRMakerSimpleController {
 	private long getTimeStamp() {
 		Timestamp timeStamp = new Timestamp(System.currentTimeMillis());
 		return timeStamp.getTime();
+	}
+	
+	@FXML
+	private void bacthModeChecked() {
+		textToEncode.setDisable( batchMode.isSelected() );
+		textToEncodeBatch.setDisable( ! batchMode.isSelected() );
+		fileName.setDisable( batchMode.isSelected() );
+		autogen.setVisible( ! batchMode.isSelected() );
 	}
 }
