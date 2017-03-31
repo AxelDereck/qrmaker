@@ -24,12 +24,12 @@
         </columnConstraints>
         <rowConstraints>
             <RowConstraints maxHeight="60.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="75.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="124.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="90.0" minHeight="10.0" prefHeight="39.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="43.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="117.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="117.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Texte à encoder :" />
@@ -45,7 +45,7 @@
                   <Font name="Candara" size="12.0" />
                </font>
             </CheckBox>
-            <TextArea fx:id="textToEncodeBatch" disable="true" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextArea fx:id="textToEncodeBatch" disable="true" prefHeight="75.0" prefWidth="395.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <CheckBox fx:id="batchMode" mnemonicParsing="false" onAction="#bacthModeChecked" text="Batch mode" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
                <font>
                   <Font name="Candara" size="12.0" />
